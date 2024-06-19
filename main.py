@@ -38,8 +38,8 @@ def sendKeyByName(textFieldName, data):
 def loginPage():
     driver.get(URL)
 
-    sendKeyByName("TcKimlikNo", "TCNO")
-    sendKeyByName("Sifre", "OSYM-AIS-SIFRE")
+    sendKeyByName("TcKimlikNo", "TCNO") # ----------> TC KİMLİK NO BURAYA
+    sendKeyByName("Sifre", "OSYM-AIS-SIFRE") # -----> ŞİFRE BURAYA (ÖSYM - AİS ŞİFRESİ OLMALI. EDEVLET DESTEĞİ YOK.
 
     button = findElement(By.ID, "btnSubmitLogin")
     waitTill(By.ID, "btnSubmitLogin")
@@ -51,11 +51,7 @@ def extractPage(page):
         f.write(page)
         f.close()
         print(extractedMsg)
-
-def checkResults():
-    resultQuantity = len(driver.find_elements(by = By.LINK_TEXT, value = "Görüntüle"))
-    print(resultQuantity)
-
+        
 loginPage()
 resp = driver.get("https://ais.osym.gov.tr/Sonuc/Listele")
 
