@@ -4,4 +4,6 @@ Bu dosya, ÖSYM'nin sitesine her 15 saniyede bir istek yollar ve YKS sonuçları
 
 Eğer sisteme sonucun yüklendiğini tespit ederse, doğrudan sonuç sayfasını html olarak dışarı aktarır.
 
-Eğer daha fazla sınav sonucu varsa, kod ayarlanabilir.
+Sonuç dosyası direkt olarak scriptin çalıştığı dosya içerisine aktarılır.
+
+Eğer daha fazla sınav sonucu varsa (örneğin mezuna kalındıysa), kod ayarlanabilir.
