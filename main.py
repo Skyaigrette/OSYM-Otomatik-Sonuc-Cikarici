@@ -21,13 +21,12 @@ extractedMsg = """
 ▒█▄▄▄ ▄▀▒▀▄ ░▒█░░ ▒█░▒█ ▒█░▒█ ▒█▄▄█ ░▒█░░ ▒█▄▄▄ ▒█▄▄▀
 """
 
-
 headStat = input("If you don't want to see Chrome during operation, type N:\n")
 
 option = Options()
 if(headStat.upper() == "N"):
     print("When you are using Chrome's headless mode, there might be some errors on debug console. Just, don't care. Everthing ok.")
-    time.sleep(5)
+    #time.sleep(5)
     option.add_argument("--headless")
 
 URL = "https://ais.osym.gov.tr/Yetki/Giris"
@@ -52,12 +51,10 @@ def sendKeyByName(textFieldName, data):
 
 def loginPage():
     driver.get(URL)
-
-    sendKeyByName("TcKimlikNo", "TCNO") # ----------> TC KİMLİK NO BURAYA
-    sendKeyByName("Sifre", "OSYM-AIS-SIFRE") # -----> ŞİFRE BURAYA (ÖSYM - AİS ŞİFRESİ OLMALI. EDEVLET DESTEĞİ YOK.
-
-    button = findElement(By.ID, "btnSubmitLogin")
     waitTill(By.ID, "btnSubmitLogin")
+    sendKeyByName("TcKimlikNo", "TC") # ----------> TC = TC KİMLİK NO BURAYA
+    sendKeyByName("Sifre", "OSYM-AIS-SIFRE") # -----> OSYM-AIS-FIRE = ŞİFRE BURAYA (ÖSYM - AİS ŞİFRESİ OLMALI. EDEVLET DESTEĞİ YOK.)
+    button = findElement(By.ID, "btnSubmitLogin")
     button.click()
 
 def extractPage(page):
@@ -80,8 +77,10 @@ while(len(driver.find_elements(by = By.LINK_TEXT, value = "Görüntüle"))<2):
 assert len(driver.window_handles) == 1
 
 waitTill(By.LINK_TEXT, "Görüntüle")
-
-view = findElement(By.LINK_TEXT, "Görüntüle")
+try:
+    view = findElement(By.LINK_TEXT, "Görüntüle")
+except:
+    raise ValueError("TC No veya Şifre Yanlış Girilmiş Olabilir.")
 
 view.click()    
 
