@@ -27,8 +27,8 @@ def sendKeyByName(textFieldName, data):
 def loginPage():
     driver.get(URL)
 
-    sendKeyByName("TcKimlikNo", "TCNO")
-    sendKeyByName("Sifre", "ÖSYM-AİS-ŞİFRE")
+    sendKeyByName("TcKimlikNo", "TCNO") # -------------------------------> TC KIMLIK NO GIRILMELİ
+    sendKeyByName("Sifre", "ÖSYM-AİS-ŞİFRE") #---------------------------> AIS ÖSYM ŞİFRESİ GİRİLMELİ - EDEVLETTEN GİRİŞ DESTEĞİ YOK
 
     button = findElement(By.ID, "btnSubmitLogin")
     waitTill(By.ID, "btnSubmitLogin")
