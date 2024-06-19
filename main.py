@@ -27,8 +27,8 @@ def sendKeyByName(textFieldName, data):
 def loginPage():
     driver.get(URL)
 
-    sendKeyByName("TcKimlikNo", "11066640598")
-    sendKeyByName("Sifre", "Asggfm38!")
+    sendKeyByName("TcKimlikNo", "TCNO")
+    sendKeyByName("Sifre", "ÖSYM-AİS-ŞİFRE")
 
     button = findElement(By.ID, "btnSubmitLogin")
     waitTill(By.ID, "btnSubmitLogin")
