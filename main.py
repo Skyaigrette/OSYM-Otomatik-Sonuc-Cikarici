@@ -14,12 +14,11 @@ doneMsg ="""
 ██████╔╝╚█████╔╝██║░╚███║███████╗
 ╚═════╝░░╚════╝░╚═╝░░╚══╝╚══════╝"""
 
-extractedMsg = """
+extractedMsg ="""
 
 ▒█▀▀▀ ▀▄▒▄▀ ▀▀█▀▀ ▒█▀▀█ ░█▀▀█ ▒█▀▀█ ▀▀█▀▀ ▒█▀▀▀ ▒█▀▀▄ 
 ▒█▀▀▀ ░▒█░░ ░▒█░░ ▒█▄▄▀ ▒█▄▄█ ▒█░░░ ░▒█░░ ▒█▀▀▀ ▒█░▒█ 
-▒█▄▄▄ ▄▀▒▀▄ ░▒█░░ ▒█░▒█ ▒█░▒█ ▒█▄▄█ ░▒█░░ ▒█▄▄▄ ▒█▄▄▀
-"""
+▒█▄▄▄ ▄▀▒▀▄ ░▒█░░ ▒█░▒█ ▒█░▒█ ▒█▄▄█ ░▒█░░ ▒█▄▄▄ ▒█▄▄▀"""
 
 headStat = input("If you don't want to see Chrome during operation, type N:\n")
 
@@ -34,11 +33,15 @@ URL = "https://ais.osym.gov.tr/Yetki/Giris"
 driver = webdriver.Chrome(options=option)
 wait = WebDriverWait(driver, 15)
 
-def waitTill(by, value):
+
+def waitTill(by, value, handle=None):
     try:
         wait.until(lambda d : findElement(by, value).is_displayed )
     except :
-        pass
+        if(handle == None):
+            pass
+        else:
+            handle()
 
 
 def findElement(by, value):
@@ -52,8 +55,8 @@ def sendKeyByName(textFieldName, data):
 def loginPage():
     driver.get(URL)
     waitTill(By.ID, "btnSubmitLogin")
-    sendKeyByName("TcKimlikNo", "TC") # ----------> TC = TC KİMLİK NO BURAYA
-    sendKeyByName("Sifre", "OSYM-AIS-SIFRE") # -----> OSYM-AIS-FIRE = ŞİFRE BURAYA (ÖSYM - AİS ŞİFRESİ OLMALI. EDEVLET DESTEĞİ YOK.)
+    sendKeyByName("TcKimlikNo", "11066640598") # ----------> TC = TC KİMLİK NO BURAYA
+    sendKeyByName("Sifre", "Asggfm38!") # -----> OSYM-AIS-FIRE = ŞİFRE BURAYA (ÖSYM - AİS ŞİFRESİ OLMALI. EDEVLET DESTEĞİ YOK.)
     button = findElement(By.ID, "btnSubmitLogin")
     button.click()
 
@@ -63,9 +66,13 @@ def extractPage(page):
         f.write(page)
         f.close()
         print(extractedMsg)
+
+def invalidCreditError():
+    raise ValueError("TC No veya Şifre Yanlış Girilmiş Olabilir")
         
 loginPage()
 resp = driver.get("https://ais.osym.gov.tr/Sonuc/Listele")
+waitTill(By.LINK_TEXT, "Görüntüle", invalidCreditError)
 
 while(len(driver.find_elements(by = By.LINK_TEXT, value = "Görüntüle"))<2):
     waitTill(By.CLASS_NAME, "non-existing-class")
@@ -76,13 +83,7 @@ while(len(driver.find_elements(by = By.LINK_TEXT, value = "Görüntüle"))<2):
 
 assert len(driver.window_handles) == 1
 
-waitTill(By.LINK_TEXT, "Görüntüle")
-try:
-    view = findElement(By.LINK_TEXT, "Görüntüle")
-except:
-    raise ValueError("TC No veya Şifre Yanlış Girilmiş Olabilir.")
-
-view.click()    
+findElement(By.LINK_TEXT, "Görüntüle").click()    
 
 wait.until(EC.number_of_windows_to_be(2))
 
@@ -91,7 +92,6 @@ for window_page in driver.window_handles:
         driver.switch_to.window(window_page)
 
 waitTill(By.CLASS_NAME, "table2x")
-
 
 extractPage(driver.page_source)
 
