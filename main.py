@@ -55,8 +55,8 @@ def sendKeyByName(textFieldName, data):
 def loginPage():
     driver.get(URL)
     waitTill(By.ID, "btnSubmitLogin")
-    sendKeyByName("TcKimlikNo", "11066640598") # ----------> TC = TC KİMLİK NO BURAYA
-    sendKeyByName("Sifre", "Asggfm38!") # -----> OSYM-AIS-FIRE = ŞİFRE BURAYA (ÖSYM - AİS ŞİFRESİ OLMALI. EDEVLET DESTEĞİ YOK.)
+    sendKeyByName("TcKimlikNo", "TC") # ----------> TC = TC KİMLİK NO BURAYA
+    sendKeyByName("Sifre", "OSYM-AIS-SIFRE") # -----> OSYM-AIS-SIFRE = ŞİFRE BURAYA (ÖSYM - AİS ŞİFRESİ OLMALI. EDEVLET DESTEĞİ YOK.)
     button = findElement(By.ID, "btnSubmitLogin")
     button.click()
 
