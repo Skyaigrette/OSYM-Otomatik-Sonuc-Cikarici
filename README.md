@@ -10,3 +10,8 @@ Girdiğiniz şifre, ÖSYM AİS sisteminin kendi şifresi olmalı. EDevlet şifre
 
 Dependencies:
 -> Selenium (https://pypi.org/project/selenium/)
+
+Şu versiyonlarda test edildi:
+Python -> 3.11.8
+Selenium -> 4.22.0
+Windows 11
