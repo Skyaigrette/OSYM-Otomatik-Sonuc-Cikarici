@@ -67,6 +67,9 @@ def extractPage(page):
         f.close()
         print(extractedMsg)
 
+def countElement(by, value):
+    return len(driver.find_elements(by = by, value = value))
+
 def invalidCreditError():
     raise ValueError("TC No veya Şifre Yanlış Girilmiş Olabilir")
         
@@ -74,7 +77,9 @@ loginPage()
 resp = driver.get("https://ais.osym.gov.tr/Sonuc/Listele")
 waitTill(By.LINK_TEXT, "Görüntüle", invalidCreditError)
 
-while(len(driver.find_elements(by = By.LINK_TEXT, value = "Görüntüle"))<2):
+resultNumber = countElement(By.LINK_TEXT, "Görüntüle")
+
+while( countElement(By.LINK_TEXT, "Görüntüle") < resultNumber+1):
     waitTill(By.CLASS_NAME, "non-existing-class")
     #time.sleep(3) -> can be used instead of waitTill, not recommended. 
     driver.refresh()
